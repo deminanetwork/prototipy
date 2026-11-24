@@ -1137,3 +1137,8 @@ body{font:500 16.5px/1.55 var(--f-body);background:var(--cream)}
 .kicker::after{width:100%;min-width:172px;max-width:none}
 @media (max-width:720px){.kicker::after{width:100%;min-width:120px}}
 .sec-head.center .kicker{margin-left:auto;margin-right:auto}
+/* v12 — кнопка «Назад в раздел» на телефоне: одинаковый отступ сверху и снизу */
+@media (max-width:720px){
+  .sec-more{padding-top:40px}
+  .pp-more{gap:40px}
+}
