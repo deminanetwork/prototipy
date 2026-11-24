@@ -1102,3 +1102,23 @@ body{font:500 16.5px/1.55 var(--f-body);background:var(--cream)}
   .st2>img{justify-self:center;width:100%;max-width:300px;padding-top:12px}
 }
 @media (max-width:1100px){.acc2{grid-template-columns:1fr}}
+
+/* =====================================================================
+   v10 — кнопки блоков на телефоне единообразно, плашки района компактнее
+   ===================================================================== */
+.local-text .btn{align-self:flex-start}
+@media (max-width:720px){
+  /* все кнопки-призывы в блоках главной: во всю ширину блока, текст по центру */
+  .sit-note .btn,.local-text .btn,.how-cta .btn,.about .btn,.dlv-more{width:100%;justify-content:center;align-self:stretch}
+  .how-cta{display:block}
+  /* плашка «Заказываете для родителей?»: иконка, текст, кнопка — друг под другом, по одному краю */
+  .sit-note{flex-direction:column;align-items:flex-start;gap:14px;padding:22px}
+  .sit-note p{min-width:0}
+}
+@media (max-width:520px){
+  /* выбор района: плашки друг под другом, текст в две строки */
+  .zone-pick.f2{grid-template-columns:1fr}
+  .zone-pick .radio{padding:12px 16px}
+  .zone-pick .r-main{font-size:16px;line-height:1.3}
+  .zone-pick .radio small{font-size:13.5px;margin-top:2px}
+}
