@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>есть привезём — овощи и фрукты с рынка с доставкой по Саратову</title>
+<meta name="description" content="Свежие овощи и фрукты с рынка с доставкой по Саратову в день заказа. От 1 кг, без минимальной суммы.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="home">
+
+<main>
+<!-- Первый экран (макет Галины): фото прилавка справа -->
+<section class="hero">
+  <div class="hero-top">
+  <img class="hero-bg" src="img/d/hero.jpg" alt="" width="2000" height="972" fetchpriority="high">
+  <div class="wrap">
+    <div class="hero-main">
+      <span class="kicker">Овощи и&nbsp;фрукты с&nbsp;рынка · Саратов</span>
+      <h1 class="h1">Рынок&nbsp;—<br>у&nbsp;вашей двери</h1>
+      <p class="lead">Свежие овощи и&nbsp;фрукты с&nbsp;рынка с&nbsp;доставкой<br class="bd"> по&nbsp;Саратову в&nbsp;день заказа. Выбираем как&nbsp;для&nbsp;себя&nbsp;—<br class="bd"> и&nbsp;привозим до&nbsp;двери</p>
+      <form class="search" action="catalog.html" role="search">
+        <i class="ti ti-search" style="color:var(--sage);font-size:20px"></i>
+        <input type="search" name="q" placeholder="Картофель, черри, укроп…" aria-label="Поиск по товарам">
+        <button class="btn btn-terra" aria-label="Найти"><span>Найти</span><i class="ti ti-arrow-right"></i></button>
+      </form>
+      <div class="chips">
+        <a class="chip" href="catalog.html?cat=fruits">Фрукты</a>
+        <a class="chip" href="catalog.html?cat=veg">Овощи</a>
+        <a class="chip" href="catalog.html?cat=greens">Зелень</a>
+        <a class="chip" href="catalog.html?cat=grapes">Ягоды</a>
+        <a class="chip" href="catalog.html?local=1"><i class="ti ti-plant-2" style="color:var(--terra)"></i>Местное</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="wrap">
+    <div class="hero-facts">
+      <div class="fact"><span class="ico"><img src="img/d/i-clock.svg" alt="" width="24" height="24"></span><div><b>В&nbsp;день заказа</b><span>Своими курьерами по&nbsp;всему Саратову, в&nbsp;удобный интервал</span></div></div>
+      <div class="fact"><span class="ico"><img src="img/d/i-scale.svg" alt="" width="24" height="24"></span><div><b>От&nbsp;1 кг</b><span>Без&nbsp;минимальной суммы: можно заказать даже килограмм картошки</span></div></div>
+      <div class="fact"><span class="ico"><img src="img/d/i-wallet.svg" alt="" width="24" height="24"></span><div><b>Бесплатно от&nbsp;2&nbsp;000&nbsp;₽</b><span>По&nbsp;Юбилейному&nbsp;—&nbsp;99&nbsp;₽,<br>по&nbsp;другим районам&nbsp;—&nbsp;199&nbsp;₽</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Сегодня на прилавке -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kicker">Сегодня на&nbsp;прилавке</span><h2 class="h2">Самое вкусное в&nbsp;этом сезоне</h2></div>
+      <div class="arrows"><button aria-label="Назад" data-scroll="-1"><i class="ti ti-arrow-left"></i></button><button aria-label="Вперёд" data-scroll="1"><i class="ti ti-arrow-right"></i></button><a class="btn btn-ghost btn-sm" href="catalog.html">Весь&nbsp;каталог<i class="ti ti-arrow-right"></i></a></div>
+    </div>
+    <div class="row-scroll" id="today"></div>
+  </div>
+</section>
+
+<!-- Разделы каталога -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="kicker">Каталог</span><h2 class="h2">Всё, что&nbsp;лежит на&nbsp;нашем прилавке</h2></div><p>Ассортимент и&nbsp;цены обновляем каждое утро. На&nbsp;сайте только то, что&nbsp;сегодня есть на&nbsp;прилавке.</p></div>
+    <div class="bento" id="cats"></div>
+  </div>
+</section>
+
+<!-- Когда доставка выручает (макет Галины) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kicker">Когда доставка выручает</span><h2 class="h2">Когда&nbsp;до&nbsp;рынка не&nbsp;дойти, а&nbsp;в&nbsp;магазине&nbsp;— не&nbsp;то</h2></div>
+      <p>Мы&nbsp;привозим то&nbsp;же, что&nbsp;лежит на&nbsp;прилавке: тот&nbsp;же выбор и&nbsp;тот&nbsp;же вкус. Только идти никуда не&nbsp;нужно.</p>
+    </div>
+    <div class="sit2">
+      <div class="it rv"><span class="n">01</span><h3>С&nbsp;маленьким ребёнком</h3><p>Не&nbsp;нужно собираться всей семьёй ради нескольких покупок</p></div>
+      <div class="it rv"><span class="n">02</span><h3>После&nbsp;работы</h3><p>Выберите в&nbsp;обед, а&nbsp;вечером всё будет дома. Интервал 16:00–20:00.</p></div>
+      <div class="it rv"><span class="n">03</span><h3>Во&nbsp;время болезни</h3><p>Не&nbsp;придётся выходить из&nbsp;дома за&nbsp;покупками</p></div>
+      <div class="it rv"><span class="n">04</span><h3>Для&nbsp;родителей</h3><p>Закажите продукты с&nbsp;доставкой прямо к&nbsp;их&nbsp;двери</p></div>
+    </div>
+    <div class="sit-note rv"><i class="ti ti-heart-handshake"></i><p><b>Заказываете для&nbsp;пожилых родителей?</b> Укажите их&nbsp;адрес и&nbsp;телефон. Оплатить можно сразу на&nbsp;сайте, тогда курьеру платить не&nbsp;нужно.</p><a class="btn btn-green btn-sm" href="catalog.html">Собрать заказ<i class="ti ti-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- Как заказать (макет Галины: номера, текст, под ним картинки) -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="kicker">Как&nbsp;это&nbsp;работает</span><h2 class="h2">От&nbsp;прилавка до&nbsp;вашей&nbsp;кухни</h2></div><p>Простой и&nbsp;понятный процесс&nbsp;— от&nbsp;выбора продуктов до&nbsp;доставки к&nbsp;вашей двери.</p></div>
+    <div class="steps2">
+      <div class="st2 rv"><div class="num"><b>01</b></div><h3 class="h3">Выбираете на&nbsp;сайте</h3><p>Ассортимент обновляем<br class="bd"> каждое утро. На&nbsp;сайте только<br class="bd"> то, что&nbsp;сегодня на&nbsp;прилавке.</p><span class="tip"><i class="ti ti-scale"></i><span>Весовой товар&nbsp;— от&nbsp;1&nbsp;кг,<br>дальше шаг 0,5&nbsp;кг</span></span><img src="img/d/step-tomato.png" alt="" loading="lazy"></div>
+      <div class="st2 rv"><div class="num"><b>02</b></div><h3 class="h3">Соберём как&nbsp;для&nbsp;себя</h3><p>Выбираем каждый плод<br class="bd"> руками: спелый, без&nbsp;вмятин.<br class="bd"> Взвешиваем точно.</p><span class="tip"><i class="ti ti-scale"></i><span>Небольшие отклонения в&nbsp;весе&nbsp;—<br>в&nbsp;вашу пользу</span></span><img src="img/d/step-box.png" alt="" loading="lazy"></div>
+      <div class="st2 rv"><div class="num"><b>03</b></div><h3 class="h3">Оплачиваете заказ</h3><p>Онлайн, картой<br class="bd"> или&nbsp;наличными курьеру.</p><span class="tip"><i class="ti ti-cash"></i><span>Курьеру можно заплатить<br>после&nbsp;проверки заказа</span></span><img src="img/d/step-card.png" alt="" loading="lazy"></div>
+      <div class="st2 rv"><div class="num"><b>04</b></div><h3 class="h3">Привозим в&nbsp;тот&nbsp;же день</h3><p>Курьер приедет<br class="bd"> в&nbsp;выбранный интервал.<br class="bd"> Проверьте заказ при&nbsp;нём.</p><span class="tip"><i class="ti ti-shield-check"></i><span>Не&nbsp;понравилось&nbsp;—<br>не&nbsp;берёте и&nbsp;не&nbsp;платите</span></span><img src="img/d/step-map.png" alt="" loading="lazy"></div>
+    </div>
+    <div class="how-cta rv"><a class="btn btn-terra" href="catalog.html">Выбрать продукты<i class="ti ti-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- Местное -->
+<section class="sec">
+  <div class="wrap">
+    <div class="local-wrap rv">
+      <div class="local">
+        <div class="local-text">
+          <span class="kicker">Местный урожай</span>
+          <h2 class="h2">От&nbsp;фермеров нашей области</h2>
+          <p class="lead">Часть овощей нам привозят фермеры, которые выращивают их&nbsp;в&nbsp;нашей области. Такие товары на&nbsp;сайте отмечены зелёной плашкой «Местное».</p>
+          <ul>
+            <li><i class="ti ti-check"></i><span>Картофель, морковь, свёкла&nbsp;—<br>основа на&nbsp;каждый день</span></li>
+            <li><i class="ti ti-check"></i>Тыква, чеснок, красный лук</li>
+          </ul>
+          <a class="btn btn-terra" href="catalog.html?local=1" style="align-self:flex-start">Смотреть всё местное<i class="ti ti-arrow-right"></i></a>
+        </div>
+        <div class="mini-grid" id="local"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Доставка (блок из макета Галины) -->
+<section class="sec" id="delivery">
+  <div class="wrap dlv">
+    <div class="dlv-l rv">
+      <div><span class="kicker">Доставка</span><h2 class="h2">Доставим прямо<br>к&nbsp;вашей двери</h2></div>
+      <p class="sub">Рынок теперь ближе, чем&nbsp;кажется</p>
+      <p class="txt">Выбираете овощи и&nbsp;фрукты дома&nbsp;— привезём своими курьерами без&nbsp;посредников</p>
+      <div class="dlv-img"><img src="img/d/bag.png" alt="Холщовая сумка со&nbsp;свежими овощами" loading="lazy"></div>
+    </div>
+    <div class="dlv-r rv">
+      <div class="dcards">
+        <div class="dcard"><span class="ico"><img src="img/d/i-wallet.svg" alt="" width="24" height="24"></span><h3>Сколько стоит</h3><p>Стоимость доставки зависит от&nbsp;адреса:</p><ul><li>Юбилейный <b>99&nbsp;₽</b></li><li>Другие районы <b>199&nbsp;₽</b></li></ul></div>
+        <div class="dcard"><span class="ico"><img src="img/d/i-clock.svg" alt="" width="24" height="24"></span><h3>Когда&nbsp;привезём</h3><p>Сегодня, в&nbsp;выбранный интервал. Время может незначительно отличаться из-за&nbsp;загрузки курьеров.</p><div class="slots"><span class="slot">10:00–14:00</span><span class="slot">16:00–20:00</span></div></div>
+        <div class="dcard"><span class="ico"><img src="img/d/i-scale.svg" alt="" width="24" height="24"></span><h3>Можно заказать от&nbsp;1&nbsp;кг</h3><p>Минимальной суммы нет, обязательно 1&nbsp;кг весового товара.</p></div>
+        <div class="dcard"><span class="ico"><i class="ti ti-rosette-discount-check"></i></span><h3>Качественно</h3><p>Товар без&nbsp;повреждений, взвешиваем точно.</p></div>
+      </div>
+      <p class="bar-note"><span><b>Заказ от&nbsp;2&nbsp;000&nbsp;₽&nbsp;— доставка бесплатно</b> в&nbsp;любой район Саратова</span></p>
+      <a class="btn btn-ghost btn-sm dlv-more" href="delivery.html">Подробнее о&nbsp;доставке и&nbsp;оплате<i class="ti ti-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- О нас (как в макете Галины) -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about rv">
+      <img class="about-img" src="img/d/about.png" alt="Морковь в&nbsp;деревянном ящике" loading="lazy" width="1000" height="667">
+      <div class="about-in">
+        <span class="kicker">О&nbsp;нас</span>
+        <h2 class="h2">Знакомый рынок<br>Удобный формат покупок</h2>
+        <p class="p1">Вы&nbsp;уже знаете нас по&nbsp;рынку, мы&nbsp;давно продаём овощи и&nbsp;фрукты офлайн. Теперь сделали покупки для&nbsp;вас ещё удобнее.</p>
+        <div><p class="hl">Каждый заказ собираем внимательно, как&nbsp;для&nbsp;себя</p>
+        <p>Отбираем продукты из&nbsp;нашего ассортимента, которые приятно подавать к&nbsp;столу.</p></div>
+        <a class="btn btn-light" href="catalog.html">Выбрать продукты<i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Вопросы -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="kicker">Вопросы</span><h2 class="h2">Часто спрашивают</h2></div></div>
+    <div class="acc acc2 rv">
+     <div class="acc-col">
+      <details open><summary>Откуда овощи и&nbsp;фрукты?<i class="ti ti-plus"></i></summary><p>С&nbsp;нашего прилавка на&nbsp;рынке. Товар мы&nbsp;закупаем на&nbsp;оптовом рынке и&nbsp;у&nbsp;местных фермеров. Местные овощи на&nbsp;сайте отмечены плашкой «Местное».</p></details>
+      <details><summary>Почему цена указана за&nbsp;1&nbsp;кг, а&nbsp;заказать можно 1,5&nbsp;кг?<i class="ti ti-plus"></i></summary><p>Весовой товар продаём с&nbsp;шагом 0,5 кг: 1 кг, 1,5 кг, 2 кг и&nbsp;так&nbsp;далее. Взвешиваем точно, а&nbsp;небольшие отклонения считаем в&nbsp;вашу пользу.</p></details>
+      <details><summary>Какой минимальный заказ?<i class="ti ti-plus"></i></summary><p>Минимальной суммы нет.&nbsp;Нужно взять хотя&nbsp;бы 1 кг одного товара. Если&nbsp;он&nbsp;уже&nbsp;есть в&nbsp;корзине, остальное можно добавлять от&nbsp;0,5 кг или&nbsp;поштучно.</p></details>
+     </div>
+     <div class="acc-col">
+      <details><summary>Что&nbsp;если&nbsp;товара не&nbsp;окажется?<i class="ti ti-plus"></i></summary><p>Мы&nbsp;обновляем ассортимент каждое утро, и&nbsp;на&nbsp;сайте только то,&nbsp;что&nbsp;сегодня лежит на&nbsp;прилавке.</p></details>
+      <details><summary>Что&nbsp;если&nbsp;заказать вечером?<i class="ti ti-plus"></i></summary><p>Заказы на&nbsp;сегодня принимаем до&nbsp;19:00. Заказы, оформленные после&nbsp;19:00, привезём на&nbsp;следующий день в&nbsp;интервал, который вы&nbsp;выберете при&nbsp;оформлении.</p></details>
+      <details><summary>А&nbsp;если&nbsp;что-то не&nbsp;понравится?<i class="ti ti-plus"></i></summary><p>Проверьте заказ при&nbsp;курьере. Если&nbsp;какой-то товар не&nbsp;понравился, не&nbsp;берите его&nbsp;и&nbsp;не&nbsp;платите за&nbsp;него. Если&nbsp;вы&nbsp;уже&nbsp;оплатили заказ онлайн, вернём деньги за&nbsp;эту позицию.</p></details>
+     </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var E = EP, P = E.S.products;
+  var today = ['hurma-fakel','mandarin-mini','granat','korolek','cherri','aiva','tykva','golubika','pomidor-roza','kartofel'];
+  document.getElementById('today').innerHTML = today.map(function (id) { return E.card(E.byId[id]); }).join('');
+  document.querySelectorAll('[data-scroll]').forEach(function (b) { b.onclick = function () { var r = document.getElementById('today'); r.scrollBy({ left: +b.dataset.scroll * r.clientWidth * .75, behavior: 'smooth' }); }; });
+  var cls = { fruits: 'c1 big', citrus: 'c5', grapes: 'c6', veg: 'c2 wide', roots: 'c4 wide', greens: 'c3 wide' };
+  var look = { fruits: 'granat', citrus: 'mandarin-mini', grapes: 'vinograd-kishmish', veg: 'perec-kras', roots: 'morkov', greens: 'ukrop' };
+  document.getElementById('cats').innerHTML = E.S.cats.map(function (c) {
+    var n = P.filter(function (p) { return p.cat === c.id; }).length;
+    return '<a class="cat ' + cls[c.id] + ' rv" href="catalog.html?cat=' + c.id + '"><div><h3 class="h3">' + c.name + '</h3><span class="cnt">' + n + ' ' + (n % 10 === 1 && n !== 11 ? 'товар' : (n % 10 > 1 && n % 10 < 5 && (n < 10 || n > 20) ? 'товара' : 'товаров')) + '</span></div><span class="go"><i class="ti ti-arrow-up-right"></i></span>' + E.pic(E.byId[look[c.id]]) + '</a>';
+  }).join('');
+  document.getElementById('local').innerHTML = P.filter(function (p) { return p.local; }).slice(0, 6).map(function (p) {
+    return '<a class="mini" href="product.html?id=' + p.id + '">' + E.pic(p) + '<b>' + E.T(p.name) + '</b><span>' + p.price + '&nbsp;₽' + E.unitLbl(p) + '</span></a>';
+  }).join('');
+};
+</script>
+</body>
+</html>

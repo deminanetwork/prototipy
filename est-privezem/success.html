@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заказ принят — есть привезём</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<main class="wrap">
+  <div class="done">
+    <span class="big-ico"><i class="ti ti-circle-check"></i></span>
+    <span class="kicker"><span>Заказ&nbsp;<span id="num"></span></span></span>
+    <h1 class="h2">Спасибо! Заказ принят</h1>
+    <p class="lead" id="info">Соберём его&nbsp;с&nbsp;прилавка и&nbsp;привезём в&nbsp;выбранный интервал.</p>
+    <div class="need" style="max-width:520px">Это&nbsp;прототип: заказ никуда не&nbsp;отправлен. На&nbsp;настоящем сайте заказ сохранится в&nbsp;админке, а&nbsp;продавцу придёт уведомление в&nbsp;Telegram или&nbsp;MAX без&nbsp;личных данных покупателя.</div>
+    <div class="steps" style="grid-template-columns:repeat(3,1fr);text-align:left;margin-top:10px;width:100%">
+      <div class="st" style="padding:20px;background:var(--cream)"><h3 class="h3" style="font-size:16px">Собираем</h3><p style="font-size:14px">Выбираем каждый плод как&nbsp;для&nbsp;себя и&nbsp;взвешиваем</p></div>
+      <div class="st" style="padding:20px;background:var(--cream)"><h3 class="h3" style="font-size:16px">Везём</h3><p style="font-size:14px">Курьер приедет в&nbsp;ваш&nbsp;интервал</p></div>
+      <div class="st" style="padding:20px;background:var(--cream)"><h3 class="h3" style="font-size:16px">Проверяете</h3><p style="font-size:14px">Что&nbsp;не&nbsp;понравилось&nbsp;— не&nbsp;берёте</p></div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a class="btn btn-terra" href="catalog.html">Вернуться в&nbsp;каталог</a><a class="btn btn-ghost" href="index.html">На&nbsp;главную</a></div>
+  </div>
+</main>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var o = {}; try { o = JSON.parse(sessionStorage.getItem('ep_last') || '{}'); } catch (e) {}
+  document.getElementById('num').textContent = '№ ' + (o.n || new URLSearchParams(location.search).get('n') || '1024');
+  var pay = { online: 'Оплата картой на сайте — в настоящем магазине здесь откроется страница банка.', card: 'Оплата картой курьеру при получении.', cash: 'Оплата наличными курьеру при получении.' };
+  if (o.total) document.getElementById('info').innerHTML = EP.T('Привезём ' + o.day + (o.slot ? ', ' + o.slot : '') + '.') + '<br>' + EP.T('Сумма — ') + '<b>' + EP.rub(o.total) + '</b>.' + (pay[o.pay] ? '<br>' + EP.T(pay[o.pay]) : '');
+};
+</script>
+<style>@media (max-width:720px){.done .steps{grid-template-columns:1fr!important}}.done .kicker{align-items:center;white-space:nowrap}.done #info b{color:var(--green);font-weight:700}</style>
+</body>
+</html>

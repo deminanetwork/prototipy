@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Корзина — есть привезём</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<main class="wrap">
+  <div class="page-top">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span>Корзина</span></nav>
+    <div class="sec-head" style="margin:18px 0 0"><div><span class="kicker">Ваш&nbsp;заказ</span><h1 class="h2">Корзина</h1></div><button class="reset" id="clear" hidden>Очистить корзину</button></div>
+  </div>
+  <div id="box"></div>
+</main>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var E = EP, box = document.getElementById('box');
+  window.onCart = draw;
+  document.getElementById('clear').onclick = function () { E.clear(); };
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-k]'); if (!b) return;
+    if (b.dataset.act === 'del') E.setQty(b.dataset.k, 0); else E.inc(b.dataset.k, +b.dataset.act);
+  });
+  box.addEventListener('change', function (e) { if (e.target.name === 'zone') E.zone(e.target.value); });
+  function draw(t) {
+    t = t || E.totals(); var c = E.cart(), keys = Object.keys(c);
+    document.getElementById('clear').hidden = !keys.length;
+    if (!keys.length) {
+      box.innerHTML = '<div class="empty" style="margin-top:20px"><i class="ti ti-shopping-bag"></i><h2 class="h3">В корзине пока пусто</h2><p style="color:var(--muted);max-width:44ch">Загляните в каталог: сегодня на прилавке хурма, мандарины, гранат и местные помидоры.</p><a class="btn btn-terra" href="catalog.html">Перейти в каталог</a></div>';
+      return;
+    }
+    var lines = keys.map(function (k) {
+      var x = E.parseKey(k), p = x.p, q = c[k];
+      return '<div class="line"><a class="lpic" href="product.html?id=' + p.id + '">' + E.pic(p) + '</a>' +
+        '<div class="nm"><a href="product.html?id=' + p.id + '">' + E.T(E.lineName(p, x.v)) + '</a><small>' + (p.sub ? p.sub + ' · ' : '') + p.price + '&nbsp;₽' + E.unitLbl(p) + '</small></div>' +
+        '<div class="stepw"><div class="step light"><button aria-label="Меньше" data-k="' + k + '" data-act="-1"><i class="ti ti-minus"></i></button><output>' + E.fmtQty(p, q) + '</output><button aria-label="Больше" data-k="' + k + '" data-act="1"><i class="ti ti-plus"></i></button></div></div>' +
+        '<div class="lsum">' + E.rub(p.price * q) + '</div>' +
+        '<button class="del" aria-label="Удалить" data-k="' + k + '" data-act="del"><i class="ti ti-x"></i></button></div>';
+    }).join('');
+    var left = E.FREE_FROM - t.sum, pct = Math.min(100, t.sum / E.FREE_FROM * 100), z = E.zone();
+    var prog = left > 0
+      ? '<div class="progress"><span>До бесплатной доставки — <b>' + E.rub(left) + '</b></span><div class="bar"><i style="width:' + pct + '%"></i></div></div>'
+      : '<div class="progress" style="background:var(--sage-soft)"><span><i class="ti ti-gift" style="color:var(--terra)"></i> <b>Доставка бесплатная</b> — заказ больше 2&nbsp;000&nbsp;₽</span></div>';
+    var warn = t.okMin ? '' : '<div class="warn"><i class="ti ti-info-circle"></i><span>Минимальный заказ — 1&nbsp;кг одного товара. Добавьте ещё 0,5&nbsp;кг к любому весовому товару, и можно оформлять.</span></div>';
+    box.innerHTML = '<div class="cart-layout"><div class="lines">' + lines +
+      '<div class="note" style="margin-top:8px"><i class="ti ti-scale"></i><span>Взвешиваем точно. Небольшие отклонения в весе — в вашу пользу, поэтому сумма к оплате не вырастет.</span></div></div>' +
+      '<aside class="summary"><h2 class="h3">Ваш заказ</h2>' +
+      '<div class="zone-pick" role="radiogroup" aria-label="Район доставки">' +
+        '<label class="radio"><input type="radio" name="zone" value="jub"' + (z === 'jub' ? ' checked' : '') + '><span class="r-main">Юбилейный<small>доставка 99 ₽</small></span></label>' +
+        '<label class="radio"><input type="radio" name="zone" value="city"' + (z === 'city' ? ' checked' : '') + '><span class="r-main">Другой район Саратова<small>доставка 199 ₽</small></span></label>' +
+      '</div>' + prog +
+      '<div class="row"><span>Товары (' + t.count + ')</span><b>' + E.rub(t.sum) + '</b></div>' +
+      '<div class="row"><span>Доставка</span><b>' + (t.del ? E.rub(t.del) : 'бесплатно') + '</b></div>' +
+      '<div class="row total"><span>Итого</span><span>' + E.rub(t.total) + '</span></div>' + warn +
+      '<a class="btn btn-terra" href="checkout.html"' + (t.okMin ? '' : ' aria-disabled="true" style="opacity:.45;pointer-events:none"') + '>Оформить заказ<i class="ti ti-arrow-right"></i></a>' +
+      '<p style="font-size:13.5px;color:var(--muted);text-align:center">Привезём сегодня в выбранный интервал</p></aside></div>';
+  }
+};
+</script>
+</body>
+</html>

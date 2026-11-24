@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Товар — есть привезём</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="catalog">
+<main class="wrap">
+  <div class="page-top"><nav class="crumbs" aria-label="Хлебные крошки" id="crumbs"></nav></div>
+  <div class="pp" id="pp"></div>
+  <section class="sec" style="padding-bottom:0">
+    <div class="sec-head"><div><span class="kicker">Из&nbsp;этого&nbsp;же раздела</span><h2 class="h2">Возьмите заодно</h2></div><a class="btn btn-ghost" id="more" href="catalog.html">Весь&nbsp;раздел</a></div>
+    <div class="grid" id="similar"></div>
+  </section>
+</main>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var E = EP, id = new URLSearchParams(location.search).get('id'), p = E.byId[id] || E.S.products[0];
+  var v = p.variants ? 0 : null, isKg = p.unit === 'kg', qty = 1;
+  document.title = p.name + (p.sub && p.sub.indexOf('пуч') < 0 ? ' (' + p.sub + ')' : '') + ' — есть привезём';
+  document.getElementById('crumbs').innerHTML = '<a href="index.html">Главная</a><span><a href="catalog.html?cat=' + p.cat + '">' + E.catName[p.cat] + '</a></span><span>' + p.name + '</span>';
+  document.getElementById('more').href = 'catalog.html?cat=' + p.cat;
+  var presets = isKg ? [1, 1.5, 2, 3] : [1, 2, 3, 5];
+  var badges = (p.local ? '<span class="badge badge-local"><i class="ti ti-plant-2"></i>Местное</span>' : '') + (p.tag ? '<span class="badge badge-tag">' + p.tag + '</span>' : '');
+  var origin = p.local ? 'Фермеры Саратовской области' : (p.sub && p.sub.indexOf('пуч') < 0 ? p.sub : '—');
+  document.getElementById('pp').innerHTML =
+    '<div class="pp-pic">' + E.pic(p) + '<span class="badges">' + badges + '</span></div>' +
+    '<div class="pp-info">' +
+      '<div><span class="kicker">' + E.catName[p.cat] + '</span><h1 class="h2" style="margin-top:12px">' + E.T(p.name) + '</h1>' + (p.sub ? '<p class="lead" style="margin-top:8px">' + E.T(p.sub) + '</p>' : '') + '</div>' +
+      (p.variants ? '<div><div class="vars" role="group" aria-label="Сорт">' + p.variants.map(function (x, i) { return '<button class="var' + (i ? '' : ' on') + '" data-v="' + i + '" aria-pressed="' + !i + '">' + x + '</button>'; }).join('') + '</div><span class="need" style="margin-top:10px">Нужно от вас: названия сортов</span></div>' : '') +
+      '<div class="pp-price"><span class="price">' + p.price + '&nbsp;₽<small>' + E.unitLbl(p) + '</small></span><span style="color:var(--muted);font-size:15px">' + (isKg ? 'взвешиваем точно, шаг 0,5 кг' : 'цена за ' + (p.sub.indexOf('пуч') === 0 ? 'пучок' : 'штуку')) + '</span></div>' +
+      '<div class="buy-box">' +
+        '<div class="qty-row"><div class="qty-presets" id="presets">' + presets.map(function (x) { return '<button data-q="' + x + '">' + String(x).replace('.', ',') + (isKg ? ' кг' : ' шт') + '</button>'; }).join('') + '</div>' +
+        '<div class="step light"><button aria-label="Меньше" id="minus"><i class="ti ti-minus"></i></button><output id="qv"></output><button aria-label="Больше" id="plus"><i class="ti ti-plus"></i></button></div></div>' +
+        '<div class="sum-line"><span>Сумма</span><b id="sum"></b></div>' +
+        '<button class="btn btn-terra" id="buy" style="width:100%"></button>' +
+        '<p id="incart" style="font-size:14.5px;color:var(--muted);text-align:center"></p>' +
+      '</div>' +
+      '<dl class="props">' +
+        '<div><dt>Откуда</dt><dd>' + origin + '</dd></div>' +
+        '<div><dt>Продаём</dt><dd>' + (isKg ? 'на вес, от 0,5 кг' : 'поштучно') + '</dd></div>' +
+        '<div><dt>Доставка</dt><dd>сегодня, в выбранный интервал</dd></div>' +
+      '</dl>' +
+      '<div class="note"><i class="ti ti-hand-finger"></i><span>' + E.T('Выбираем как для себя: спелое, без вмятин и подгнивших мест. Проверьте заказ при курьере — если что-то не понравится, не берите и не платите.') + '</span></div>' +
+      (isKg ? '' : '') +
+    '</div>';
+  var mn = isKg ? .5 : 1, stp = isKg ? .5 : 1;
+  function k() { return E.keyOf(p.id, v); }
+  function draw() {
+    document.getElementById('qv').textContent = E.fmtQty(p, qty);
+    document.getElementById('sum').textContent = E.rub(p.price * qty);
+    document.querySelectorAll('#presets button').forEach(function (b) { b.classList.toggle('on', +b.dataset.q === qty); });
+    var inc = E.cart()[k()];
+    document.getElementById('buy').innerHTML = inc ? (inc === qty ? '<i class="ti ti-check"></i>В корзине · перейти' : '<i class="ti ti-refresh"></i>Изменить в корзине на ' + E.fmtQty(p, qty)) : '<i class="ti ti-shopping-bag-plus"></i>В корзину за ' + E.rub(p.price * qty);
+    document.getElementById('incart').innerHTML = inc ? 'Сейчас в корзине: ' + E.fmtQty(p, inc) + ' · <a href="cart.html" style="color:var(--green);font-weight:600">открыть корзину</a>' : (isKg ? 'Минимальный заказ — 1 кг одного товара' : 'Добавьте к заказу хотя бы 1 кг весового товара');
+  }
+  document.getElementById('presets').onclick = function (e) { var b = e.target.closest('button'); if (b) { qty = +b.dataset.q; draw(); } };
+  document.getElementById('minus').onclick = function () { qty = Math.max(mn, qty - stp); draw(); };
+  document.getElementById('plus').onclick = function () { qty = qty + stp; draw(); };
+  document.getElementById('buy').onclick = function () {
+    var inc = E.cart()[k()];
+    if (inc === qty) { location.href = 'cart.html'; return; }
+    E.setQty(k(), qty); E.toast((inc ? 'Изменили: ' : 'Добавили: ') + E.lineName(p, v) + ' — ' + E.fmtQty(p, qty)); draw();
+  };
+  window.onVar = function (i) { v = i; draw(); };
+  window.onCart = function () { if (document.getElementById('qv')) draw(); };
+  var sim = E.S.products.filter(function (x) { return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
+  document.getElementById('similar').innerHTML = sim.map(E.card).join('');
+  draw();
+};
+</script>
+</body>
+</html>

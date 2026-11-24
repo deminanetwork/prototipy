@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог — есть привезём</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="catalog">
+<main class="wrap">
+  <div class="page-top">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span id="crumb">Каталог</span></nav>
+    <div class="sec-head" style="margin:18px 0 26px">
+      <div><span class="kicker">Сегодня на&nbsp;прилавке</span><h1 class="h2" id="title">Каталог</h1></div>
+      <p class="lead" style="max-width:44ch">Ассортимент и&nbsp;цены обновляем каждое утро. Весовой товар&nbsp;— от&nbsp;1 кг, дальше шаг 0,5 кг.</p>
+    </div>
+  </div>
+  <div class="cat-layout">
+    <aside class="filters" aria-label="Фильтры">
+      <div><h4>Разделы</h4><div class="flist" id="flist" style="margin-top:12px"></div></div>
+      <label class="toggle"><span><i class="ti ti-plant-2" style="color:var(--terra)"></i> Только местное</span><input type="checkbox" id="local"></label>
+      <div class="note" style="font-size:14px"><i class="ti ti-truck-delivery"></i><span>Бесплатная доставка от&nbsp;2&nbsp;000&nbsp;₽. По&nbsp;Юбилейному&nbsp;— 99&nbsp;₽, по&nbsp;городу&nbsp;— 199&nbsp;₽.</span></div>
+    </aside>
+    <div>
+      <div class="cat-chips" id="chips"></div>
+      <div class="toolbar">
+        <form class="search" onsubmit="return false" role="search"><i class="ti ti-search" style="color:var(--sage);font-size:20px"></i><input type="search" id="q" placeholder="Найти товар" aria-label="Поиск по каталогу"></form>
+        
+        <select id="sort" aria-label="Сортировка"><option value="">Сначала популярные</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option><option value="name">По&nbsp;названию</option></select>
+      </div>
+      <div class="toolbar" style="margin-top:-4px"><span class="found" id="found"></span><button class="reset" id="reset" hidden>Сбросить фильтры</button></div>
+      <div class="grid g3" id="grid"></div>
+      <div class="empty" id="empty" hidden><i class="ti ti-basket-off"></i><h3 class="h3">Ничего не&nbsp;нашлось</h3><p style="color:var(--muted);max-width:44ch">Попробуйте другое название или&nbsp;сбросьте фильтры. Если&nbsp;нужного нет&nbsp;на&nbsp;прилавке сегодня&nbsp;— позвоните, подскажем, когда&nbsp;появится.</p><button class="btn btn-green btn-sm" onclick="document.getElementById('reset').click()">Сбросить фильтры</button></div>
+    </div>
+  </div>
+</main>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var E = EP, P = E.S.products, u = new URLSearchParams(location.search);
+  var st = { cat: u.get('cat') || '', q: u.get('q') || '', local: u.get('local') === '1', sort: '' };
+  var q = document.getElementById('q'), loc = document.getElementById('local'), sort = document.getElementById('sort');
+  q.value = st.q; loc.checked = st.local;
+  function cnt(c) { return P.filter(function (p) { return !c || p.cat === c; }).length; }
+  var cats = [{ id: '', name: 'Все товары' }].concat(E.S.cats);
+  function drawNav() {
+    document.getElementById('flist').innerHTML = cats.map(function (c) { return '<button data-cat="' + c.id + '" class="' + (st.cat === c.id ? 'on' : '') + '">' + c.name + '<small>' + cnt(c.id) + '</small></button>'; }).join('');
+    document.getElementById('chips').innerHTML = cats.map(function (c) { return '<button class="chip' + (st.cat === c.id ? ' on' : '') + '" data-cat="' + c.id + '">' + c.name + '</button>'; }).join('') +
+      '<button class="chip' + (st.local ? ' on' : '') + '" data-local><i class="ti ti-plant-2"></i>Местное</button>';
+  }
+  function norm(s) { return s.toLowerCase().replace(/ё/g, 'е'); }
+  function draw() {
+    var list = P.filter(function (p) {
+      return (!st.cat || p.cat === st.cat) && (!st.local || p.local) && (!st.q || norm(p.name + ' ' + p.sub).indexOf(norm(st.q.trim())) >= 0);
+    });
+    if (st.sort === 'asc') list.sort(function (a, b) { return a.price - b.price; });
+    if (st.sort === 'desc') list.sort(function (a, b) { return b.price - a.price; });
+    if (st.sort === 'name') list.sort(function (a, b) { return a.name.localeCompare(b.name, 'ru'); });
+    document.getElementById('grid').innerHTML = list.map(E.card).join('');
+    document.getElementById('empty').hidden = list.length > 0;
+    document.getElementById('found').innerHTML = 'Найдено: <b>' + list.length + '</b>';
+    document.getElementById('reset').hidden = !(st.cat || st.q || st.local || st.sort);
+    var t = st.cat ? E.catName[st.cat] : (st.local ? 'Местное' : 'Каталог');
+    document.getElementById('title').textContent = t; document.getElementById('crumb').textContent = t;
+    document.title = t + ' — есть привезём';
+    drawNav(); E.refresh();
+    var p = new URLSearchParams(); if (st.cat) p.set('cat', st.cat); if (st.local) p.set('local', '1'); if (st.q) p.set('q', st.q);
+    history.replaceState(null, '', 'catalog.html' + (p.toString() ? '?' + p : ''));
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cat]'); if (b) { st.cat = b.dataset.cat; draw(); }
+    if (e.target.closest('[data-local]')) { st.local = !st.local; loc.checked = st.local; draw(); }
+  });
+  q.addEventListener('input', function () { st.q = q.value; draw(); });
+  loc.addEventListener('change', function () { st.local = loc.checked; draw(); });
+  sort.addEventListener('change', function () { st.sort = sort.value; draw(); });
+  document.getElementById('reset').addEventListener('click', function () { st = { cat: '', q: '', local: false, sort: '' }; q.value = ''; loc.checked = false; sort.value = ''; draw(); });
+  draw();
+};
+</script>
+</body>
+</html>

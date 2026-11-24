@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оформление заказа — есть привезём</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<main class="wrap">
+  <div class="page-top">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span><a href="cart.html">Корзина</a></span><span>Оформление</span></nav>
+    <div class="sec-head" style="margin:18px 0 0"><div><span class="kicker">Последний шаг</span><h1 class="h2">Оформление заказа</h1></div></div>
+  </div>
+  <div class="cart-layout">
+    <form class="form" id="f" novalidate>
+      <fieldset class="fs" style="border:0">
+        <h3 class="h3"><i>1</i>Получатель</h3>
+        <div class="f2">
+          <div class="fld"><label for="name">Имя</label><input id="name" autocomplete="name" placeholder="Как к вам обращаться" required><span class="em">Напишите имя, чтобы&nbsp;курьер знал, кого спросить</span></div>
+          <div class="fld"><label for="phone">Телефон</label><input id="phone" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required><span class="em">Нужен номер, чтобы&nbsp;курьер мог связаться</span></div>
+        </div>
+        <label class="check"><input type="checkbox" id="other"><span>Заказываю для&nbsp;другого человека, например для&nbsp;родителей</span></label>
+        <div class="f2" id="otherBox" hidden>
+          <div class="fld"><label for="rname">Имя получателя</label><input id="rname" placeholder="Например, Мария Ивановна"></div>
+          <div class="fld"><label for="rphone">Телефон получателя</label><input id="rphone" type="tel" placeholder="+7 (___) ___-__-__"></div>
+        </div>
+      </fieldset>
+      <fieldset class="fs" style="border:0">
+        <h3 class="h3"><i>2</i>Адрес</h3>
+        <div class="zone-pick f2" role="radiogroup" aria-label="Район" id="zones"></div>
+        <div class="fld"><label for="street">Улица и&nbsp;дом</label><input id="street" autocomplete="street-address" placeholder="Например, ул. Чапаева, 12" required><span class="em">Укажите улицу и&nbsp;номер дома</span></div>
+        <div class="f4">
+          <div class="fld"><label for="flat">Квартира</label><input id="flat" inputmode="numeric"></div>
+          <div class="fld"><label for="ent">Подъезд</label><input id="ent" inputmode="numeric"></div>
+          <div class="fld"><label for="floor">Этаж</label><input id="floor" inputmode="numeric"></div>
+          <div class="fld"><label for="code">Домофон</label><input id="code"></div>
+        </div>
+        <div class="fld"><label for="comment">Комментарий курьеру</label><textarea id="comment" placeholder="Например: позвоните за 10 минут, лифт не работает"></textarea></div>
+      </fieldset>
+      <fieldset class="fs" style="border:0">
+        <h3 class="h3"><i>3</i>Когда&nbsp;привезти</h3>
+        <div class="slot-pick" id="days"></div>
+        <div class="slot-pick" id="slots"></div>
+        <p style="font-size:14.5px;color:var(--muted)">На&nbsp;сегодня принимаем заказы: в&nbsp;утренний интервал&nbsp;— до&nbsp;13:00, в&nbsp;вечерний&nbsp;— до&nbsp;19:00. После 19:00 можно выбрать только интервалы на&nbsp;завтра.</p>
+      </fieldset>
+      <fieldset class="fs" style="border:0">
+        <h3 class="h3"><i>4</i>Оплата</h3>
+        <div class="zone-pick">
+          <label class="radio"><input type="radio" name="pay" value="online" checked><i class="ti ti-credit-card" style="font-size:24px;color:var(--terra)"></i><span class="r-main">Картой на&nbsp;сайте<small>Т-Банк, чек придёт на&nbsp;почту или&nbsp;в&nbsp;СМС</small></span></label>
+          <label class="radio"><input type="radio" name="pay" value="card"><i class="ti ti-device-mobile" style="font-size:24px;color:var(--terra)"></i><span class="r-main">Картой курьеру<small>Приложите карту или&nbsp;телефон к&nbsp;телефону курьера</small></span></label>
+          <label class="radio"><input type="radio" name="pay" value="cash"><i class="ti ti-cash" style="font-size:24px;color:var(--terra)"></i><span class="r-main">Наличными курьеру<small>Подготовьте сумму без&nbsp;сдачи, если&nbsp;получится</small></span></label>
+        </div>
+        <label class="check" id="agreeBox"><input type="checkbox" id="agree"><span>Соглашаюсь с <a href="docs.html#oferta" target="_blank">офертой</a> и&nbsp;даю согласие на&nbsp;обработку персональных данных по <a href="docs.html#policy" target="_blank">политике конфиденциальности</a></span></label>
+        <span class="em" id="agreeErr" style="color:#C0392B;font-size:13.5px" hidden>Чтобы&nbsp;оформить заказ, нужно согласие</span>
+      </fieldset>
+    </form>
+    <aside class="summary" id="sum"></aside>
+  </div>
+</main>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js?v=7"></script>
+<script>
+window.init = function () {
+  var E = EP, CUT = 20, now = new Date(), h = now.getHours();
+  if (!E.totals().okMin) { location.replace('cart.html'); return; }
+  /* район */
+  function zones() { var z = E.zone(); document.getElementById('zones').innerHTML = ['jub', 'city'].map(function (id) { return '<label class="radio"><input type="radio" name="zone" value="' + id + '"' + (z === id ? ' checked' : '') + '><span class="r-main">' + E.ZONES[id].name + '<small>доставка ' + E.ZONES[id].price + ' ₽, от 2 000 ₽ бесплатно</small></span></label>'; }).join(''); }
+  zones();
+  document.getElementById('zones').addEventListener('change', function (e) { E.zone(e.target.value); });
+  /* дни и интервалы */
+  var SL = [['10', '10:00–14:00', '', 0, 13], ['16', '16:00–20:00', '', 0, 19]];
+  var todayOk = h < SL[SL.length - 1][4];
+  var dEl = document.getElementById('days'), sEl = document.getElementById('slots'), day = todayOk ? 'today' : 'tomorrow';
+  function fmt(d) { return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }); }
+  var tm = new Date(now); tm.setDate(tm.getDate() + 1);
+  dEl.innerHTML = (todayOk ? '<label><input type="radio" name="day" value="today" checked><span>Сегодня<small>' + fmt(now) + '</small></span></label>' : '') +
+    '<label><input type="radio" name="day" value="tomorrow"' + (todayOk ? '' : ' checked') + '><span>Завтра<small>' + fmt(tm) + '</small></span></label>';
+  function slots() {
+    var list = SL.filter(function (s) { return day === 'tomorrow' || h < s[4]; });
+    sEl.innerHTML = list.map(function (s, i) { return '<label><input type="radio" name="slot" value="' + s[0] + '"' + (i ? '' : ' checked') + '><span>' + s[1] + (s[2] ? '<small>' + s[2] + '</small>' : '') + '</span></label>'; }).join('');
+  }
+  slots();
+  dEl.addEventListener('change', function (e) { day = e.target.value; slots(); });
+  /* маска телефона */
+  function mask(el) {
+    el.addEventListener('input', function () {
+      var d = el.value.replace(/\D/g, ''); if (d[0] === '8' || d[0] === '7') d = d.slice(1); d = d.slice(0, 10);
+      var r = '+7'; if (d.length) r += ' (' + d.slice(0, 3); if (d.length >= 3) r += ') ' + d.slice(3, 6); if (d.length >= 6) r += '-' + d.slice(6, 8); if (d.length >= 8) r += '-' + d.slice(8, 10);
+      el.value = d.length ? r : '';
+    });
+  }
+  mask(document.getElementById('phone')); mask(document.getElementById('rphone'));
+  document.getElementById('other').onchange = function () { document.getElementById('otherBox').hidden = !this.checked; };
+  /* итог */
+  window.onCart = function (t) {
+    var c = E.cart();
+    document.getElementById('sum').innerHTML = '<h2 class="h3">Ваш заказ</h2>' +
+      Object.keys(c).map(function (k) { var x = E.parseKey(k); return '<div class="row"><span>' + E.T(E.lineName(x.p, x.v)) + ' · ' + E.fmtQty(x.p, c[k]) + '</span><b>' + E.rub(x.p.price * c[k]) + '</b></div>'; }).join('') +
+      '<div class="row" style="border-top:1px solid var(--line);padding-top:12px"><span>Доставка · ' + E.ZONES[E.zone()].name + '</span><b>' + (t.del ? E.rub(t.del) : 'бесплатно') + '</b></div>' +
+      '<div class="row total"><span>Итого</span><span>' + E.rub(t.total) + '</span></div>' +
+      '<button class="btn btn-terra" form="f" type="submit">Подтвердить заказ<i class="ti ti-check"></i></button>' +
+      '<a href="cart.html" style="text-align:center;font-size:14.5px;color:var(--green);font-weight:600">Вернуться в корзину</a>';
+  };
+  /* проверка и отправка */
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault(); var ok = true, first;
+    [['name', function (v) { return v.trim().length > 1; }], ['phone', function (v) { return v.replace(/\D/g, '').length === 11; }], ['street', function (v) { return v.trim().length > 4; }]].forEach(function (f) {
+      var el = document.getElementById(f[0]), good = f[1](el.value); el.parentNode.classList.toggle('err', !good); if (!good) { ok = false; first = first || el; }
+    });
+    var ag = document.getElementById('agree').checked; document.getElementById('agreeErr').hidden = ag; if (!ag) { ok = false; first = first || document.getElementById('agree'); }
+    if (!ok) { first.focus(); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
+    var t = E.totals(), pay = document.querySelector('[name=pay]:checked').value, sl = document.querySelector('[name=slot]:checked');
+    var o = { n: Math.floor(1000 + Math.random() * 9000), total: t.total, pay: pay, day: day === 'today' ? 'сегодня' : 'завтра', slot: !sl ? '' : 'в интервал ' + sl.nextElementSibling.firstChild.textContent };
+    try { sessionStorage.setItem('ep_last', JSON.stringify(o)); } catch (x) {}
+    E.clear(); location.href = 'success.html?n=' + o.n;
+  });
+  document.querySelectorAll('.fld input').forEach(function (el) { el.addEventListener('input', function () { el.parentNode.classList.remove('err'); }); });
+};
+</script>
+</body>
+</html>
