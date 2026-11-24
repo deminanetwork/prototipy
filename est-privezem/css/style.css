@@ -1084,3 +1084,21 @@ body{font:500 16.5px/1.55 var(--f-body);background:var(--cream)}
 .toolbar select{-webkit-appearance:none;appearance:none;padding:0 44px 0 16px;cursor:pointer;
   background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231E2722' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center}
 @media (min-width:721px) and (max-width:1024px){.dlv-l .txt{margin-bottom:28px}}
+
+/* =====================================================================
+   v9 — правки Галины после проверки на телефоне
+   ===================================================================== */
+/* форма: поле не съезжает, когда у соседнего появляется подсказка об ошибке */
+.fld{align-content:start;align-self:start}
+
+/* шаги на телефоне: компактнее, картинка крупнее и по центру */
+@media (max-width:720px){
+  .steps2{max-width:360px;margin-left:auto;margin-right:auto}
+  .steps2 .st2:nth-child(n+2) .num{margin-top:36px}
+  .st2 .num b{width:44px;height:44px;font-size:18px}
+  .st2 h3{margin-top:14px}
+  .st2 p{margin-top:6px;font-size:15px;line-height:1.4}
+  .st2 .tip{margin-top:12px;font-size:14px}
+  .st2>img{justify-self:center;width:100%;max-width:300px;padding-top:12px}
+}
+@media (max-width:1100px){.acc2{grid-template-columns:1fr}}
